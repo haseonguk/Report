@@ -323,27 +323,27 @@ const ReportForm = () => {
 
             <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
-            {/* 상단 검색바: 모바일에서 버튼이 잘리지 않도록 flex-wrap 또는 stack 적용 */}
+            {/* 상단 검색바: 모바일에서도 한 줄에 나오도록 flex-row 유지 및 폭 조정 */}
             <div className={`bg-blue-600 p-3 md:p-4 rounded-2xl shadow-lg mb-8 flex flex-col md:flex-row gap-4 items-center transition-all ${activeTab === 'list' ? 'hidden md:flex' : 'flex'}`}>
-                <div className="flex-1 text-white text-center md:text-left w-full">
+                <div className="flex-1 text-white text-center md:text-left w-full hidden sm:block">
                     <h3 className="font-bold flex items-center justify-center md:justify-start gap-2 text-sm md:text-base">
                         <span className="bg-white/20 p-1 rounded-lg text-xs">SEARCH</span> 고객 정보 빠른 찾기
                     </h3>
                 </div>
-                <div className="flex flex-col sm:flex-row w-full md:w-auto gap-2 bg-white/10 p-1.5 rounded-xl border border-white/20">
+                <div className="flex flex-row w-full md:w-auto gap-2 bg-white/10 p-1.5 rounded-xl border border-white/20 items-center">
                     <input
                         type="tel"
                         value={searchPhone}
                         onChange={(e) => setSearchPhone(cleanPhoneNumber(e.target.value))}
-                        placeholder="연락처 (숫자만 입력)"
-                        className="w-full md:w-64 px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-white/50 outline-none text-gray-800 font-bold text-sm"
+                        placeholder="연락처"
+                        className="flex-1 min-w-0 px-3 py-2 rounded-lg border-none focus:ring-2 focus:ring-white/50 outline-none text-gray-800 font-bold text-sm"
                     />
                     <button
                         onClick={handleCustomerSearch}
                         disabled={searchLoading}
-                        className="w-full sm:w-auto bg-white text-blue-600 px-6 py-2 rounded-lg font-black hover:bg-blue-50 transition shadow-sm disabled:bg-gray-200 text-sm whitespace-nowrap active:scale-95"
+                        className="shrink-0 bg-white text-blue-600 px-4 py-2 rounded-lg font-black hover:bg-blue-50 transition shadow-sm disabled:bg-gray-200 text-sm whitespace-nowrap active:scale-95"
                     >
-                        {searchLoading ? '조회중...' : '조회하기'}
+                        {searchLoading ? '...' : '조회'}
                     </button>
                 </div>
             </div>
@@ -602,7 +602,7 @@ const ReportForm = () => {
                                 <thead className="bg-yellow-100 border-b-2 border-black sticky top-0">
                                     <tr>
                                         <th className="px-1 md:px-3 py-3 text-center font-black text-black uppercase tracking-tighter w-10 md:w-12 border-r border-gray-300">No.</th>
-                                        <th className="px-2 md:px-4 py-3 text-left font-black text-gray-800 uppercase border-r border-gray-300 w-[120px] md:w-32 whitespace-nowrap">차종 & 년식</th>
+                                        <th className="px-2 md:px-4 py-3 text-left font-black text-gray-800 uppercase border-r border-gray-300 w-[100px] md:w-32 whitespace-nowrap">차종 & 년식</th>
                                         <th className="px-2 md:px-4 py-3 text-center font-black text-gray-800 uppercase border-r border-gray-300 w-[100px] md:w-32 whitespace-nowrap">차량번호</th>
                                         <th className="px-2 md:px-3 py-3 text-center font-black text-gray-800 uppercase border-r border-gray-300 whitespace-nowrap">연락처</th>
                                         <th className="px-2 md:px-3 py-3 text-center font-black text-gray-800 uppercase whitespace-nowrap">PDF</th>
