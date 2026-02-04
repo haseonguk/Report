@@ -323,25 +323,25 @@ const ReportForm = () => {
 
             <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
 
-            {/* 상단 검색바: 높이를 줄이고 버튼과 입력필드의 밸런스 조정 */}
+            {/* 상단 검색바: 모바일에서 버튼이 잘리지 않도록 flex-wrap 또는 stack 적용 */}
             <div className={`bg-blue-600 p-3 md:p-4 rounded-2xl shadow-lg mb-8 flex flex-col md:flex-row gap-4 items-center transition-all ${activeTab === 'list' ? 'hidden md:flex' : 'flex'}`}>
-                <div className="flex-1 text-white">
-                    <h3 className="font-bold flex items-center gap-2 text-sm md:text-base">
+                <div className="flex-1 text-white text-center md:text-left w-full">
+                    <h3 className="font-bold flex items-center justify-center md:justify-start gap-2 text-sm md:text-base">
                         <span className="bg-white/20 p-1 rounded-lg text-xs">SEARCH</span> 고객 정보 빠른 찾기
                     </h3>
                 </div>
-                <div className="flex w-full md:w-auto gap-2 bg-white/10 p-1.5 rounded-xl border border-white/20">
+                <div className="flex flex-col sm:flex-row w-full md:w-auto gap-2 bg-white/10 p-1.5 rounded-xl border border-white/20">
                     <input
                         type="tel"
                         value={searchPhone}
                         onChange={(e) => setSearchPhone(cleanPhoneNumber(e.target.value))}
                         placeholder="연락처 (숫자만 입력)"
-                        className="flex-1 md:w-64 px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-white/50 outline-none text-gray-800 font-bold text-sm"
+                        className="w-full md:w-64 px-4 py-2 rounded-lg border-none focus:ring-2 focus:ring-white/50 outline-none text-gray-800 font-bold text-sm"
                     />
                     <button
                         onClick={handleCustomerSearch}
                         disabled={searchLoading}
-                        className="bg-white text-blue-600 px-6 py-2 rounded-lg font-black hover:bg-blue-50 transition shadow-sm disabled:bg-gray-200 text-sm whitespace-nowrap active:scale-95"
+                        className="w-full sm:w-auto bg-white text-blue-600 px-6 py-2 rounded-lg font-black hover:bg-blue-50 transition shadow-sm disabled:bg-gray-200 text-sm whitespace-nowrap active:scale-95"
                     >
                         {searchLoading ? '조회중...' : '조회하기'}
                     </button>
@@ -597,15 +597,15 @@ const ReportForm = () => {
                             </div>
                         </div>
 
-                        <div className="flex-1 overflow-x-auto overflow-y-hidden">
-                            <table className="w-full text-xs border-collapse border border-gray-200">
+                        <div className="flex-1 overflow-x-auto overflow-y-hidden thin-scrollbar">
+                            <table className="w-full text-[10px] md:text-xs border-collapse border border-gray-200 min-w-[500px] md:min-w-full">
                                 <thead className="bg-yellow-100 border-b-2 border-black sticky top-0">
                                     <tr>
-                                        <th className="px-3 py-2.5 text-center font-black text-black uppercase tracking-tighter w-12 border-r border-gray-300">No.</th>
-                                        <th className="px-4 py-2.5 text-left font-black text-gray-800 uppercase border-r border-gray-300 w-32">차종 & 년식</th>
-                                        <th className="px-4 py-2.5 text-center font-black text-gray-800 uppercase border-r border-gray-300 w-32">차량번호</th>
-                                        <th className="px-3 py-2.5 text-center font-black text-gray-800 uppercase border-r border-gray-300">연락처</th>
-                                        <th className="px-3 py-2.5 text-center font-black text-gray-800 uppercase">pdf</th>
+                                        <th className="px-1 md:px-3 py-3 text-center font-black text-black uppercase tracking-tighter w-10 md:w-12 border-r border-gray-300">No.</th>
+                                        <th className="px-2 md:px-4 py-3 text-left font-black text-gray-800 uppercase border-r border-gray-300 w-[120px] md:w-32 whitespace-nowrap">차종 & 년식</th>
+                                        <th className="px-2 md:px-4 py-3 text-center font-black text-gray-800 uppercase border-r border-gray-300 w-[100px] md:w-32 whitespace-nowrap">차량번호</th>
+                                        <th className="px-2 md:px-3 py-3 text-center font-black text-gray-800 uppercase border-r border-gray-300 whitespace-nowrap">연락처</th>
+                                        <th className="px-2 md:px-3 py-3 text-center font-black text-gray-800 uppercase whitespace-nowrap">PDF</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
@@ -613,22 +613,22 @@ const ReportForm = () => {
                                         const totalIndex = filteredReports.length - ((currentPage - 1) * itemsPerPage + idx);
                                         return (
                                             <tr key={idx} className={`hover:bg-yellow-50/30 transition-colors group ${idx % 2 === 1 ? 'bg-yellow-50/50' : 'bg-white'}`}>
-                                                <td className="px-3 py-2.5 text-center font-bold text-black border-r border-gray-200">{totalIndex}</td>
-                                                <td className="px-4 py-2.5 border-r border-gray-200">
-                                                    <div className="font-medium text-black whitespace-nowrap">{report.vehicleModel}</div>
+                                                <td className="px-1 md:px-3 py-3 text-center font-bold text-black border-r border-gray-200">{totalIndex}</td>
+                                                <td className="px-2 md:px-4 py-3 border-r border-gray-200">
+                                                    <div className="font-medium text-black break-all md:whitespace-nowrap leading-tight">{report.vehicleModel}</div>
                                                 </td>
-                                                <td className="px-4 py-2.5 text-center border-r border-gray-200">
-                                                    <span className="font-medium text-black">{report.vehicleNumber}</span>
+                                                <td className="px-2 md:px-4 py-3 text-center border-r border-gray-200">
+                                                    <span className="font-medium text-black leading-tight">{report.vehicleNumber}</span>
                                                 </td>
-                                                <td className="px-4 py-2.5 text-center text-black font-medium border-r border-gray-200">{report.recipientPhone}</td>
-                                                <td className="px-4 py-2.5 text-center">
+                                                <td className="px-2 md:px-4 py-3 text-center text-black font-medium border-r border-gray-200 leading-tight">{report.recipientPhone}</td>
+                                                <td className="px-2 md:px-4 py-3 text-center">
                                                     {report.pdfUrl && report.pdfUrl.startsWith('http') ? (
-                                                        <a href={report.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-300 text-black rounded-lg text-[11px] font-black hover:bg-blue-500 hover:text-white transition-all shadow-sm">
-                                                            <span>PDF View</span>
-                                                            <span className="text-[8px]">➜</span>
+                                                        <a href={report.pdfUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 px-2 md:px-3 py-1.5 bg-red-300 text-black rounded-lg text-[9px] md:text-[11px] font-black hover:bg-blue-500 hover:text-white transition-all shadow-sm">
+                                                            <span className="whitespace-nowrap font-bold">VIEW</span>
+                                                            <span className="text-[10px] md:text-[8px]">➜</span>
                                                         </a>
                                                     ) : (
-                                                        <span className="text-[10px] text-gray-300 italic">로그오류</span>
+                                                        <span className="text-[9px] text-gray-300 italic">오류</span>
                                                     )}
                                                 </td>
                                             </tr>
